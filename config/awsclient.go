@@ -2,7 +2,7 @@ package config
 
 // Retrieves access key id and secret key from the pass
 // password store
-func CloudstackClientConfig() (string, string, string) {
+func AWSCloudClientConfig() (string, string, string) {
 
 	var access string
 	var secret string
