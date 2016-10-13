@@ -6,16 +6,22 @@
 brew install terraform go
 ```
 
-## Required environment variables
-
-```
-mkdir <path-to-sourcecode>/go
-```
-# Insert into .bashrc 
-export GOPATH=<path-to-sourcecode>/go/
-export GOBIN=$GOPATH/bin/
+# Insert into .bashrc
+export GOPATH=<path-to-sourcecode>/go
+export GOBIN=$GOPATH/bin
 PATH=$GOBIN/bin:$PATH
 export PATH
+```
+
+## Set up developer environment
+
+```
+source ~/.bashrc
+mkdir -p $GOPATH/{bin,pkg,src/github.com/nsbno,vendor}
+go get github.com/nsbno/cloud-tools # Ignore the warning message
+cd $GOPATH/src/github.com/nsbno/cloud-tools
+./deps.sh
+./make.sh
 ```
 
 ## Install Terragrunt

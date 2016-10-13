@@ -1,8 +1,7 @@
 package config
 
-// Retrieves access key id and secret key from the pass
-// password store
-func AWSCloudClientConfig() (string, string, string) {
+// Retrieves secrets from the pass password store
+func AWSCloudClientConfig() (string, string) {
 
 	var access string
 	var secret string
@@ -18,7 +17,6 @@ func AWSCloudClientConfig() (string, string, string) {
 		if secVar.Name == "AWS_SECRET_ACCESS_KEY" {
 			secret = GetPasswordFor(secVar.Key)
 		}
-
 	}
 
 	return access, secret
