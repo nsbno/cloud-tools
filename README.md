@@ -37,4 +37,5 @@ ln -nsf /usr/local/bin/terragrunt_darwin_amd64 /usr/local/bin/terragrunt
 ```
 Run `terragrunt-wrapper plan` in a terraform base directory to check if it works.
 
+---
 The tools has borrowed a lot from: https://github.com/digipost/cloud-tools
