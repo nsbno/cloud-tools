@@ -1,9 +1,11 @@
 # cloud-tools
 
+The terragrunt-wrapper requires a [passwordstore](https://www.passwordstore.org).
+
 ## Required software
 
 ```
-brew install terraform go
+brew install terraform go pass
 ```
 
 # Insert into .bashrc
