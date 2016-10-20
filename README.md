@@ -8,6 +8,18 @@ The terragrunt-wrapper requires a [passwordstore](https://www.passwordstore.org)
 brew install terraform go pass
 ```
 
+## Install Terragrunt
+
+Download Terragrunt from https://github.com/gruntwork-io/terragrunt/releases
+
+```
+cd ~/Downloads
+chmod 0755 ~/Downloads/terragrunt_darwin_amd64
+mv ~/Downloads/terragrunt_darwin_amd64 /usr/local/bin/
+ln -nsf /usr/local/bin/terragrunt_darwin_amd64 /usr/local/bin/terragrunt
+
+```
+
 # Insert into .bashrc
 ```
 export GOPATH=<path-to-your-sourcecode>/go
@@ -27,16 +39,6 @@ cd $GOPATH/src/github.com/nsbno/cloud-tools
 ./make.sh
 ```
 
-## Install Terragrunt
-
-Download Terragrunt from https://github.com/gruntwork-io/terragrunt/releases
-
-```
-cd ~/Downloads
-chmod 0755 ~/Downloads/terragrunt_darwin_amd64
-mv ~/Downloads/terragrunt_darwin_amd64 /usr/local/bin/
-ln -nsf /usr/local/bin/terragrunt_darwin_amd64 /usr/local/bin/terragrunt
-```
 Run `terragrunt-wrapper plan` in a terraform base directory to check if it works.
 
 ---
