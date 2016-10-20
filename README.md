@@ -10,7 +10,7 @@ brew install terraform go
 ```
 export GOPATH=<path-to-sourcecode>/go
 export GOBIN=$GOPATH/bin
-PATH=$GOBIN/bin:$PATH
+PATH=$GOBIN:$PATH
 export PATH
 ```
 
@@ -35,4 +35,4 @@ chmod 0755 ~/Downloads/terragrunt_darwin_amd64
 mv ~/Downloads/terragrunt_darwin_amd64 /usr/local/bin/
 ln -nsf /usr/local/bin/terragrunt_darwin_amd64 /usr/local/bin/terragrunt
 ```
-Run `terragrunt plan` to check if it works.
+Run `terragrunt-wrapper plan` to check if it works.
