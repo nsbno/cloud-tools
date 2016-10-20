@@ -10,7 +10,7 @@ brew install terraform go pass
 
 # Insert into .bashrc
 ```
-export GOPATH=<path-to-sourcecode>/go
+export GOPATH=<path-to-your-sourcecode>/go
 export GOBIN=$GOPATH/bin
 PATH=$GOBIN:$PATH
 export PATH
