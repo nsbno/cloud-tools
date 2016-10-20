@@ -8,8 +8,6 @@ The terragrunt-wrapper requires a [passwordstore](https://www.passwordstore.org)
 brew install terraform go pass
 ```
 
-## Install Terragrunt
-
 Download Terragrunt from https://github.com/gruntwork-io/terragrunt/releases
 
 ```
