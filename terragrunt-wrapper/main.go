@@ -25,7 +25,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Terraform is not installed!")
 	}
         if !isInstalled("terragrunt") {
-                fmt.Fprintf(os.Stderr, "Terraform is not installed!")
+                fmt.Fprintf(os.Stderr, "Terragrunt is not installed!")
         }
 
 	start := time.Now()
