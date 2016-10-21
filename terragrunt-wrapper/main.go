@@ -15,21 +15,25 @@ import (
 // setup an environment containing secrets and execute terragrunt,
 // passing command-line arguments to terragrunt as-is
 func main() {
+        if !isInstalled("terraform") {
+                fmt.Fprintf(os.Stderr, "Terraform is not installed!\n")
+                os.Exit(1)
+        }
+        if !isInstalled("terragrunt") {
+                fmt.Fprintf(os.Stderr, "Terragrunt is not installed!\n")
+                os.Exit(1)
+        }
+        if !isInstalled("pass") {
+                fmt.Fprintf(os.Stderr, "pass is not installed!\n")
+                os.Exit(1)
+        }
+
 	config := config.ParseDefaultCloudConfig()
 
 //	if !isRequiredTerraformVersion(config.TerraformVersion) {
 //		fmt.Fprintf(os.Stderr, "Bad Terraform version - cloud-config.yml requires %s\n", config.TerraformVersion)
 //		os.Exit(1)
 //	}
-
-	if !isInstalled("terraform") {
-		fmt.Fprintf(os.Stderr, "Terraform is not installed!\n")
-		os.Exit(1)
-	}
-        if !isInstalled("terragrunt") {
-                fmt.Fprintf(os.Stderr, "Terragrunt is not installed!\n")
-		os.Exit(1)
-        }
 
 	start := time.Now()
 	fmt.Println("Started terragrunt operation at:", start)
@@ -44,7 +48,7 @@ func main() {
 }
 
 func isInstalled(execName string) bool {
-	cmd := exec.Command(execName, "-version")
+	cmd := exec.Command(execName, "--version")
 	output, _ := cmd.Output()
         totest :=  strings.ToLower(string(output))
 	if strings.Contains(totest, execName) {
