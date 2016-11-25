@@ -44,6 +44,8 @@ envchain --set aws AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
 ```
 See: https://github.com/sorah/envchain
 
+## Test it!
+
 Run `envchain aws terragrunt-wrapper plan` in a terraform base directory to check if it works.
 
 ---
