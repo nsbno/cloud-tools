@@ -37,7 +37,14 @@ cd $GOPATH/src/github.com/nsbno/cloud-tools
 ./make.sh
 ```
 
-Run `terragrunt-wrapper plan` in a terraform base directory to check if it works.
+## Install envchain to set aws credentials
+```
+brew install envchain
+envchain --set aws AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+```
+See: https://github.com/sorah/envchain
+
+Run `envchain aws terragrunt-wrapper plan` in a terraform base directory to check if it works.
 
 ---
 The tools has borrowed a lot from: https://github.com/digipost/cloud-tools
