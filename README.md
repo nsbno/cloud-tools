@@ -18,7 +18,7 @@ ln -nsf /usr/local/bin/terragrunt_darwin_amd64 /usr/local/bin/terragrunt
 
 ```
 
-# Insert into .bashrc
+## Insert into .bashrc
 ```
 export GOPATH=<path-to-your-sourcecode>/go
 export GOBIN=$GOPATH/bin
