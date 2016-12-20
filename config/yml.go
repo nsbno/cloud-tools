@@ -43,8 +43,15 @@ type Variable struct {
 	Value string
 }
 
+type Command struct {
+        Executable string
+        Arguments  []string
+        Outputfile string
+}
+
 type CloudConfig struct {
 	SecretVariables  []SecretVariable `secret-vars`
 	Variables        []Variable       `vars`
+        Commands         []Command        `commands`
 	TerraformVersion string           `terraform-version`
 }

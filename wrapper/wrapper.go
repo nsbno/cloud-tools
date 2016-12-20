@@ -4,7 +4,15 @@ import (
 	"github.com/nsbno/cloud-tools/config"
 	"os"
 	"os/exec"
+        "io/ioutil"
+        "fmt"
 )
+
+func check(e error) {
+    if e != nil {
+        panic(e)
+    }
+}
 
 // GetEnvironmentVariablesForSecrets appends env vars for secrets to environment
 func GetEnvironmentVariablesForSecrets(secretVars []config.SecretVariable) []string {
@@ -22,6 +30,19 @@ func GetEnvironmentVariablesForValues(vars []config.Variable) []string {
 		environment = append(environment, variable.Name+"="+variable.Value)
 	}
 	return environment
+}
+
+func RunCmds(commands []config.Command) {
+	for _, command := range commands {
+		out, err := exec.Command(command.Executable, command.Arguments...).Output()
+		check(err)
+                if command.Outputfile == "" {
+			fmt.Printf("%s\n", out)
+                }
+		if out != nil {
+			ioutil.WriteFile(command.Outputfile, []byte(out), 0644)
+		}
+	}
 }
 
 // ExecuteCommand builds the command line string to be executed
