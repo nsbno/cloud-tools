@@ -5,7 +5,7 @@ The terragrunt-wrapper requires a [passwordstore](https://www.passwordstore.org)
 ## Required software
 
 ```
-brew install terraform go pass
+brew install terraform go pass jq
 ```
 
 Download Terragrunt from https://github.com/gruntwork-io/terragrunt/releases
