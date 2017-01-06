@@ -10,6 +10,8 @@ brew install terraform go pass
 
 Download Terragrunt from https://github.com/gruntwork-io/terragrunt/releases
 
+_(select the released file `terragrunt_darwin_amd64` from the newest release that has this package)_
+
 ```
 cd ~/Downloads
 chmod 0755 ~/Downloads/terragrunt_darwin_amd64
