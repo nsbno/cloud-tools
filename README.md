@@ -21,6 +21,9 @@ ln -nsf /usr/local/bin/terragrunt_darwin_amd64 /usr/local/bin/terragrunt
 ```
 
 ## Insert into .bashrc
+
+`path-to-your-sourcecode/go` should be an empty folder you create to store your go code in.
+
 ```
 export GOPATH=<path-to-your-sourcecode>/go
 export GOBIN=$GOPATH/bin
