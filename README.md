@@ -1,13 +1,13 @@
 # Cloud Tools
 
-This repo contain and describes the tools you are expected to have installed and set up before emarking on the adventure that is working with infrastructure or deploying to the cloud.
+This repo contains and describes the tools you are expected to have installed and set up before embarking on the adventure that is working with infrastructure or deploying to the cloud.
 
 The `terragrunt-wrapper` is a wrapper for Terragrunt, which in turn wraps Terraform. It's purpose is to:
 
 - read values for secret variables from `pass`
 - set up environment variables
-- run command custom commands (for example for dynamically generate more variables)
-- run terraform and passing along any arguments
+- run custom commands (for example to dynamically generate more variables)
+- run terraform passing along any arguments
 
 Configure using a file named `cloud-config.yml`. See this file from `mtl` for an example: https://github.com/nsbno/mtl/blob/master/terraform/prod/cloud-config.yml
 
@@ -53,7 +53,7 @@ PATH=$GOBIN:$PATH
 export PATH
 ```
 
-> Note: `path-to-your-sourcecode/go` should point an empty folder you create to store your go code in.
+> Note: `path-to-your-sourcecode/go` should point to an empty folder you create to store your go code in.
 
 
 ## Set up developer environment
