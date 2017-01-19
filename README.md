@@ -80,10 +80,11 @@ See: https://github.com/sorah/envchain
 ## Install additional tools
 
 ```
-brew install s3cmd jq ansible pip
-pip install awscli awsebcli
+brew install s3cmd jq pip
+pip install awscli awsebcli ansible
 ```
 
+> Note: It is better to install `ansible` with `pip` rather than with `brew`. This way `ansible` is available to Python when running certain scripts for getting dynamic inventory when provisioning.
 
 ## Test it!
 
