@@ -80,7 +80,8 @@ See: https://github.com/sorah/envchain
 ## Install additional tools
 
 ```
-brew install s3cmd jq pip
+brew install s3cmd jq
+sudo easy_install pip
 pip install awscli awsebcli ansible
 ```
 
