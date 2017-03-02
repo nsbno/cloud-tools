@@ -29,9 +29,6 @@ func GetEnvironmentVariablesForValues(vars []config.Variable) []string {
 	for _, variable := range vars {
 		environment = append(environment, variable.Name+"="+variable.Value)
 	}
-        // Always add AWS credentials
-        environment = append(environment, "AWS_ACCESS_KEY_ID="+os.Getenv("AWS_ACCESS_KEY_ID"))
-        environment = append(environment, "AWS_SECRET_ACCESS_KEY="+os.Getenv("AWS_SECRET_ACCESS_KEY"))
 	return environment
 }
 

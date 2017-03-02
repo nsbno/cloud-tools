@@ -35,10 +35,16 @@ func main() {
 //		os.Exit(1)
 //	}
 
-	start := time.Now()
-	fmt.Println("Started terragrunt operation at:", start)
+        // Always add AWS credentials
+        var credentials []string
+        credentials = append(credentials, "AWS_ACCESS_KEY_ID="+os.Getenv("AWS_ACCESS_KEY_ID"))
+        credentials = append(credentials, "AWS_SECRET_ACCESS_KEY="+os.Getenv("AWS_SECRET_ACCESS_KEY"))
+
 	secEnv := wrapper.GetEnvironmentVariablesForSecrets(config.SecretVariables[:])
+        secEnv = append(secEnv, credentials...)
 	env := wrapper.GetEnvironmentVariablesForValues(config.Variables[:])
+        start := time.Now()
+        fmt.Println("Started terragrunt operation at:", start)
         wrapper.RunCmds(config.Commands[:])
         fullEnv := append(env, secEnv...)
 	wrapper.ExecuteCommand("terragrunt", os.Args[1:], fullEnv)
