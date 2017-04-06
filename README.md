@@ -72,8 +72,11 @@ cd $GOPATH/src/github.com/nsbno/cloud-tools
 
 ```bash
 brew install envchain
-envchain --set aws AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+envchain --set aws AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION
 ```
+
+> Note: AWS_DEFAULT_REGION = eu-central-1
+
 See: https://github.com/sorah/envchain
 
 
