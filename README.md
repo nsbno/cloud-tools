@@ -2,7 +2,7 @@
 
 This repo contains and describes the tools you are expected to have installed and set up before embarking on the adventure that is working with infrastructure or deploying to the cloud.
 
-The `terragrunt-wrapper` is a wrapper for Terragrunt, which in turn wraps Terraform. It's purpose is to:
+The `terraform-wrapper` is a wrapper for Terraform. It's purpose is to:
 
 - read values for secret variables from `pass`
 - set up environment variables
@@ -19,24 +19,11 @@ The rest of this file explains how to install and set everything up.
 See https://github.com/nsbno/.password-store for information on setting this up.
 
 
-## Install Terraform and Terragrunt
+## Install Terraform
 
 ```
 brew install terraform
 ```
-
-Download Terragrunt from https://github.com/gruntwork-io/terragrunt/releases
-
-_(select the released file `terragrunt_darwin_amd64` from the newest release that has this package)_
-
-```bash
-cd ~/Downloads
-chmod 0755 ~/Downloads/terragrunt_darwin_amd64
-mv ~/Downloads/terragrunt_darwin_amd64 /usr/local/bin/
-ln -nsf /usr/local/bin/terragrunt_darwin_amd64 /usr/local/bin/terragrunt
-
-```
-
 
 ## Install Go
 
@@ -92,8 +79,13 @@ pip install awscli awsebcli ansible
 
 ## Test it!
 
-Run `envchain aws terragrunt-wrapper plan` in a terraform base directory to check if it works.
+Run the following commands in a terraform base directory to check if it works.
 
+```
+envchain aws terraform get --update
+envchain aws terraform init
+envchain aws terraform-wrapper plan
+```
 
 ---
 The tools has borrowed a lot from: https://github.com/digipost/cloud-tools
