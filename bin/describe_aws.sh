@@ -8,7 +8,7 @@ if [[ -z $the_env ]]; then
 fi
 
 function print_label() {
-	echo -ne "$1:\t[fetching]\b\b\b\b\b\b\b\b\b\b"	
+	printf "$1:\t\e[3mfetching\e[0m\b\b\b\b\b\b\b\b"
 }
 
 function print_value() {
