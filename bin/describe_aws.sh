@@ -82,3 +82,13 @@ envchain aws aws elasticbeanstalk describe-instances-health --environment-name "
  | parse_private_ip \
  | join_lines \
  | print_value
+
+print_label "Database, hostname"
+envchain aws aws rds describe-db-instances --db-instance-identifier "${the_env}-chat-rds" \
+ | jq ".DBInstances[].Endpoint.Address" | tr -d '"' \
+ | print_value
+
+print_label "Database, port number"
+envchain aws aws rds describe-db-instances --db-instance-identifier "${the_env}-chat-rds" \
+ | jq ".DBInstances[].Endpoint.Port" | tr -d '"' \
+ | print_value
