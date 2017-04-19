@@ -12,7 +12,7 @@ fi
 ##
 
 function print_label() {
-	printf "$1:\t\e[3mfetching\e[0m\b\b\b\b\b\b\b\b"
+	printf "%-30s\e[3mfetching\e[0m\b\b\b\b\b\b\b\b" "$1"
 }
 
 function print_heading() {
@@ -92,3 +92,5 @@ print_label "Database, port number"
 envchain aws aws rds describe-db-instances --db-instance-identifier "${the_env}-chat-rds" \
  | jq ".DBInstances[].Endpoint.Port" | tr -d '"' \
  | print_value
+
+
