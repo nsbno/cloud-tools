@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
         "strings"
-	"regexp"
 	"github.com/nsbno/cloud-tools/config"
 	"github.com/nsbno/cloud-tools/wrapper"
 	"os"
 	"os/exec"
+        "bufio"
 	"time"
 )
 
@@ -26,11 +26,6 @@ func main() {
 
 	config := config.ParseDefaultCloudConfig()
 
-//	if !isRequiredTerraformVersion(config.TerraformVersion) {
-//		fmt.Fprintf(os.Stderr, "Bad Terraform version - cloud-config.yml requires %s\n", config.TerraformVersion)
-//		os.Exit(1)
-//	}
-
         // Always add AWS credentials
         var credentials []string
         credentials = append(credentials, "AWS_ACCESS_KEY_ID="+os.Getenv("AWS_ACCESS_KEY_ID"))
@@ -39,6 +34,15 @@ func main() {
 	secEnv := wrapper.GetEnvironmentVariablesForSecrets(config.SecretVariables[:])
         secEnv = append(secEnv, credentials...)
 	env := wrapper.GetEnvironmentVariablesForValues(config.Variables[:])
+
+        if contains(env, "TF_VAR_env=prod") {
+                reader := bufio.NewReader(os.Stdin)
+                fmt.Print("You are provisioning PROD. Type PROD to continue... ")
+                input, _ := reader.ReadString('\n')
+                if strings.TrimRight(input, "\n") != "PROD" {
+                        os.Exit(0)
+                }
+        }
         start := time.Now()
         fmt.Println("Started terraform operation at:", start)
         wrapper.RunCmds(config.Commands[:])
@@ -61,13 +65,12 @@ func isInstalled(execName string) bool {
 	return false
 }
 
+func contains(slice []string, item string) bool {
+    set := make(map[string]struct{}, len(slice))
+    for _, s := range slice {
+        set[s] = struct{}{}
+    }
 
-
-func isRequiredTerraformVersion(requiredVersion string) bool {
-	cmd := exec.Command("terraform", "--version")
-	output, _ := cmd.Output()
-	text := string(output)
-	terraformVersion, _ := regexp.Compile(`Terraform v(\d{1,2}\.\d{1,2}\.\d{1,2})`)
-	result_slice := terraformVersion.FindStringSubmatch(text)
-	return result_slice[1] == requiredVersion
+    _, ok := set[item] 
+    return ok
 }
