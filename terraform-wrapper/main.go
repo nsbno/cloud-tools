@@ -35,7 +35,7 @@ func main() {
         secEnv = append(secEnv, credentials...)
 	env := wrapper.GetEnvironmentVariablesForValues(config.Variables[:])
 
-        if contains(env, "TF_VAR_env=prod") {
+        if contains(env, "TF_VAR_env=prod") && (os.Args[1] == "apply" ) {
                 reader := bufio.NewReader(os.Stdin)
                 fmt.Print("You are provisioning PROD. Type PROD to continue... ")
                 input, _ := reader.ReadString('\n')
