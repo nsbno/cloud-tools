@@ -24,6 +24,13 @@ func main() {
                 os.Exit(1)
         }
 
+        terraformArgs := os.Args[1:]
+        terraformArgs = append(terraformArgs, "-input=false")
+        if (os.Args[1] == "apply" ) {
+                terraformArgs = append(terraformArgs, "-auto-approve")
+                terraformArgs = append(terraformArgs, "-lock=true")
+        }
+
 	config := config.ParseDefaultCloudConfig()
 
         // Always add AWS credentials
@@ -31,9 +38,10 @@ func main() {
         credentials = append(credentials, "AWS_ACCESS_KEY_ID="+os.Getenv("AWS_ACCESS_KEY_ID"))
         credentials = append(credentials, "AWS_SECRET_ACCESS_KEY="+os.Getenv("AWS_SECRET_ACCESS_KEY"))
 
+        env := wrapper.GetEnvironmentVariablesForValues(config.Variables[:])
 	secEnv := wrapper.GetEnvironmentVariablesForSecrets(config.SecretVariables[:])
         secEnv = append(secEnv, credentials...)
-	env := wrapper.GetEnvironmentVariablesForValues(config.Variables[:])
+        fullEnv := append(env, secEnv...)
 
         if contains(env, "TF_VAR_env=prod") && (os.Args[1] == "apply" ) {
                 reader := bufio.NewReader(os.Stdin)
@@ -43,11 +51,11 @@ func main() {
                         os.Exit(0)
                 }
         }
+
         start := time.Now()
         fmt.Println("Started terraform operation at:", start)
         wrapper.RunCmds(config.Commands[:])
-        fullEnv := append(env, secEnv...)
-	wrapper.ExecuteCommand("terraform", os.Args[1:], fullEnv)
+	wrapper.ExecuteCommand("terraform", terraformArgs, fullEnv)
 	stop := time.Now()
 	fmt.Println("Started terraform operation at:", start)
 	fmt.Println("Finished terraform operation at:", stop)
