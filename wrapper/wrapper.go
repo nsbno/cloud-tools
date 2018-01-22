@@ -34,8 +34,13 @@ func GetEnvironmentVariablesForValues(vars []config.Variable) []string {
 
 func RunCmds(commands []config.Command) {
 	for _, command := range commands {
-                fmt.Printf("Running %s %s %s\n", command.Executable, command.Arguments[0], command.Arguments[1])
-                fmt.Printf("Writing to %s\n", command.Outputfile)
+                var argumentsInterface []interface{} = make([]interface{}, len(command.Arguments))
+                for i, d := range command.Arguments {
+	            argumentsInterface[i] = d
+                }
+                fmt.Printf("Running %s\n", command.Executable)
+                fmt.Printf("With arguments %v\n", argumentsInterface)
+                fmt.Println("Writing to %s\n", command.Outputfile)
                 out, err := exec.Command(command.Executable, command.Arguments...).Output()
                 fmt.Printf("%s\n", out)
 		check(err)
