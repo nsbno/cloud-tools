@@ -40,7 +40,7 @@ func RunCmds(commands []config.Command) {
                 }
                 fmt.Printf("Running %s\n", command.Executable)
                 fmt.Printf("With arguments %v\n", argumentsInterface)
-                fmt.Println("Writing to %s\n", command.Outputfile)
+                fmt.Printf("Writing to %s\n", command.Outputfile)
                 out, err := exec.Command(command.Executable, command.Arguments...).Output()
                 fmt.Printf("%s\n", out)
 		check(err)
