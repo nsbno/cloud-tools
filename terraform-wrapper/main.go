@@ -79,6 +79,6 @@ func contains(slice []string, item string) bool {
         set[s] = struct{}{}
     }
 
-    _, ok := set[item] 
+    _, ok := set[item]
     return ok
 }
