@@ -1,17 +1,18 @@
 package wrapper
 
 import (
-	"github.com/nsbno/cloud-tools/config"
+	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
-        "io/ioutil"
-        "fmt"
+
+	"github.com/nsbno/cloud-tools/config"
 )
 
 func check(e error) {
-    if e != nil {
-        panic(e)
-    }
+	if e != nil {
+		panic(e)
+	}
 }
 
 // GetEnvironmentVariablesForSecrets appends env vars for secrets to environment
@@ -34,19 +35,19 @@ func GetEnvironmentVariablesForValues(vars []config.Variable) []string {
 
 func RunCmds(commands []config.Command) {
 	for _, command := range commands {
-                var argumentsInterface []interface{} = make([]interface{}, len(command.Arguments))
-                for i, d := range command.Arguments {
-	            argumentsInterface[i] = d
-                }
-                fmt.Printf("Running %s\n", command.Executable)
-                fmt.Printf("With arguments %v\n", argumentsInterface)
-                fmt.Printf("Writing to %s\n", command.Outputfile)
-                out, err := exec.Command(command.Executable, command.Arguments...).Output()
-                fmt.Printf("%s\n", out)
+		var argumentsInterface []interface{} = make([]interface{}, len(command.Arguments))
+		for i, d := range command.Arguments {
+			argumentsInterface[i] = d
+		}
+		fmt.Printf("Running %s\n", command.Executable)
+		fmt.Printf("With arguments %v\n", argumentsInterface)
+		fmt.Printf("Writing to %s\n", command.Outputfile)
+		out, err := exec.Command(command.Executable, command.Arguments...).Output()
+		fmt.Printf("%s\n", out)
 		check(err)
-                if command.Outputfile == "" {
+		if command.Outputfile == "" {
 			fmt.Printf("%s\n", out)
-                }
+		}
 		if out != nil {
 			ioutil.WriteFile(command.Outputfile, []byte(out), 0644)
 		}
@@ -58,7 +59,8 @@ func ExecuteCommand(command string, args []string, environment []string) {
 
 	cmd := exec.Command(command, args...)
 
-	cmd.Env = append(environment, "PATH="+os.Getenv("PATH"))
+	cmd.Env = append(environment, "PATH="+os.Getenv("PATH"), "HOME="+os.Getenv("HOME"))
+
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Start()
