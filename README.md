@@ -82,8 +82,8 @@ pip install awscli awsebcli ansible
 Run the following commands in a terraform base directory to check if it works.
 
 ```
-envchain aws terraform get --update
-envchain aws terraform init
+envchain aws terraform-wrapper get --update
+envchain aws terraform-wapper init
 envchain aws terraform-wrapper plan
 ```
 
