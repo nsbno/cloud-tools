@@ -83,7 +83,7 @@ Run the following commands in a terraform base directory to check if it works.
 
 ```
 envchain aws terraform-wrapper get --update
-envchain aws terraform-wapper init
+envchain aws terraform-wrapper init
 envchain aws terraform-wrapper plan
 ```
 
