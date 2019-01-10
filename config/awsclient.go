@@ -6,7 +6,10 @@ func AWSCloudClientConfig() (string, string) {
 	var access string
 	var secret string
 
-	cloudConfig := ParseDefaultCloudConfig()
+	cloudConfig, err := ParseDefaultCloudConfig()
+	if err != nil {
+		return "", ""
+	}
 
 	for _, secVar := range cloudConfig.SecretVariables {
 
