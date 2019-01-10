@@ -6,30 +6,32 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"errors"
 )
 
-func ParseDefaultCloudConfig() CloudConfig {
+func ParseDefaultCloudConfig() (CloudConfig, error) {
 	return ParseConfig("cloud-config.yml")
 }
 
-func ParseConfig(filename string) CloudConfig {
+func ParseConfig(filename string) (CloudConfig, error) {
 
 	dir, _ := os.Getwd()
 	absFilename, _ := filepath.Abs(fmt.Sprintf("%s%c%s", dir, os.PathSeparator, filename))
 	yamlFile, err := ioutil.ReadFile(absFilename)
 
+	var config CloudConfig
+
 	if err != nil {
-		panic(err)
+		return config, errors.New(fmt.Sprintf("Missing %s. Make sure you run this command from a Terraform environment directory.\n", filename))
 	}
 
-	var config CloudConfig
 
 	err = yaml.Unmarshal(yamlFile, &config)
 	if err != nil {
-		panic(err)
+		return config, errors.New(fmt.Sprintf("Unable to parse %s. Make sure it contains valid YAML syntax", filename))
 	}
 
-	return config
+	return config, nil
 
 }
 

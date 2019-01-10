@@ -1,13 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-        "strings"
 	"github.com/nsbno/cloud-tools/config"
 	"github.com/nsbno/cloud-tools/wrapper"
 	"os"
 	"os/exec"
-        "bufio"
+	"strings"
 	"time"
 )
 
@@ -15,46 +15,57 @@ import (
 // setup an environment containing secrets and execute terraform,
 // passing command-line arguments to terraform as-is
 func main() {
-        if !isInstalled("terraform") {
-                fmt.Fprintf(os.Stderr, "Terraform is not installed!\n")
-                os.Exit(1)
-        }
-        if !isInstalled("pass") {
-                fmt.Fprintf(os.Stderr, "pass is not installed!\n")
-                os.Exit(1)
-        }
+	if !isInstalled("terraform") {
+		fmt.Fprintf(os.Stderr, "Terraform is not installed!\n")
+		os.Exit(1)
+	}
+	if !isInstalled("pass") {
+		fmt.Fprintf(os.Stderr, "pass is not installed!\n")
+		os.Exit(1)
+	}
 
-        terraformArgs := os.Args[1:]
-        terraformArgs = append(terraformArgs, "-input=false")
-        if (os.Args[1] == "apply" ) {
-                terraformArgs = append(terraformArgs, "-auto-approve")
-                terraformArgs = append(terraformArgs, "-lock=true")
-        }
+	terraformArgs := os.Args[1:]
+	terraformArgs = append(terraformArgs, "-input=false")
 
-	config := config.ParseDefaultCloudConfig()
+    if len(os.Args) <= 1 {
+        wrapper.ExecuteCommand("terraform", terraformArgs, nil)
+        os.Exit(1)
+    }
 
-        // Always add AWS credentials
-        var credentials []string
-        credentials = append(credentials, "AWS_ACCESS_KEY_ID="+os.Getenv("AWS_ACCESS_KEY_ID"))
-        credentials = append(credentials, "AWS_SECRET_ACCESS_KEY="+os.Getenv("AWS_SECRET_ACCESS_KEY"))
+	if os.Args[1] == "apply" {
+		terraformArgs = append(terraformArgs, "-auto-approve")
+		terraformArgs = append(terraformArgs, "-lock=true")
+	}
 
-        env := wrapper.GetEnvironmentVariablesForValues(config.Variables[:])
+	config, err := config.ParseDefaultCloudConfig()
+
+	if err != nil {
+        fmt.Fprintf(os.Stderr, "%+v", err)
+        os.Exit(1)
+	}
+
+	// Always add AWS credentials
+	var credentials []string
+	credentials = append(credentials, "AWS_ACCESS_KEY_ID="+os.Getenv("AWS_ACCESS_KEY_ID"))
+	credentials = append(credentials, "AWS_SECRET_ACCESS_KEY="+os.Getenv("AWS_SECRET_ACCESS_KEY"))
+
+	env := wrapper.GetEnvironmentVariablesForValues(config.Variables[:])
 	secEnv := wrapper.GetEnvironmentVariablesForSecrets(config.SecretVariables[:])
-        secEnv = append(secEnv, credentials...)
-        fullEnv := append(env, secEnv...)
+	secEnv = append(secEnv, credentials...)
+	fullEnv := append(env, secEnv...)
 
-        if contains(env, "TF_VAR_env=prod") && (os.Args[1] == "apply" ) {
-                reader := bufio.NewReader(os.Stdin)
-                fmt.Print("You are provisioning PROD. Type PROD to continue... ")
-                input, _ := reader.ReadString('\n')
-                if strings.TrimRight(input, "\n") != "PROD" {
-                        os.Exit(0)
-                }
-        }
+	if contains(env, "TF_VAR_env=prod") && (os.Args[1] == "apply") {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("You are provisioning PROD. Type PROD to continue... ")
+		input, _ := reader.ReadString('\n')
+		if strings.TrimRight(input, "\n") != "PROD" {
+			os.Exit(0)
+		}
+	}
 
-        start := time.Now()
-        fmt.Println("Started terraform operation at:", start)
-        wrapper.RunCmds(config.Commands[:])
+	start := time.Now()
+	fmt.Println("Started terraform operation at:", start)
+	wrapper.RunCmds(config.Commands[:])
 	wrapper.ExecuteCommand("terraform", terraformArgs, fullEnv)
 	stop := time.Now()
 	fmt.Println("Started terraform operation at:", start)
@@ -66,7 +77,7 @@ func main() {
 func isInstalled(execName string) bool {
 	cmd := exec.Command(execName, "--version")
 	output, _ := cmd.Output()
-        totest :=  strings.ToLower(string(output))
+	totest := strings.ToLower(string(output))
 	if strings.Contains(totest, execName) {
 		return true
 	}
@@ -74,11 +85,11 @@ func isInstalled(execName string) bool {
 }
 
 func contains(slice []string, item string) bool {
-    set := make(map[string]struct{}, len(slice))
-    for _, s := range slice {
-        set[s] = struct{}{}
-    }
+	set := make(map[string]struct{}, len(slice))
+	for _, s := range slice {
+		set[s] = struct{}{}
+	}
 
-    _, ok := set[item]
-    return ok
+	_, ok := set[item]
+	return ok
 }
