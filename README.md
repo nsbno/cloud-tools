@@ -72,7 +72,7 @@ See: https://github.com/sorah/envchain
 ```
 brew install s3cmd jq
 sudo easy_install pip
-pip install awscli awsebcli ansible
+pip install awscli awsebcli ansible --user
 ```
 
 > Note: It is better to install `ansible` with `pip` rather than with `brew`. This way `ansible` is available to Python when running certain scripts for getting dynamic inventory when provisioning.
