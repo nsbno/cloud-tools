@@ -22,7 +22,8 @@ See https://github.com/nsbno/.password-store for information on setting this up.
 ## Install Terraform
 
 ```
-brew install terraform
+brew install tfenv
+tfenv install 0.11.14
 ```
 
 ## Install Go
@@ -72,7 +73,7 @@ See: https://github.com/sorah/envchain
 ```
 brew install s3cmd jq
 sudo easy_install pip
-pip install awscli awsebcli ansible --user
+pip install ansible --user
 ```
 
 > Note: It is better to install `ansible` with `pip` rather than with `brew`. This way `ansible` is available to Python when running certain scripts for getting dynamic inventory when provisioning.
@@ -82,7 +83,6 @@ pip install awscli awsebcli ansible --user
 Run the following commands in a terraform base directory to check if it works.
 
 ```
-envchain aws terraform-wrapper get --update
 envchain aws terraform-wrapper init
 envchain aws terraform-wrapper plan
 ```
