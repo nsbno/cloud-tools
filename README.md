@@ -56,18 +56,6 @@ cd $GOPATH/src/github.com/nsbno/cloud-tools
 ```
 
 
-## Install envchain to set aws credentials
-
-```bash
-brew install envchain
-envchain --set aws AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION
-```
-
-> Note: AWS_DEFAULT_REGION = eu-central-1
-
-See: https://github.com/sorah/envchain
-
-
 ## Install additional tools
 
 ```
