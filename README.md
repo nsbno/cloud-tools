@@ -21,9 +21,11 @@ See https://github.com/nsbno/.password-store for information on setting this up.
 
 ## Install Terraform
 
+Use the latest point release of Terraform 12 (change below)
+
 ```
 brew install tfenv
-tfenv install 0.11.14
+tfenv install 0.12.20
 ```
 
 ## Install Go
