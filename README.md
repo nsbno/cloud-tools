@@ -33,17 +33,15 @@ tfenv install 0.12.20
 ```bash
 brew install go
 ```
-
+Create a new folder `/go` alongside the rest of your Vy repos.
 Add the following to your `.bashrc`
 
 ```bash
-export GOPATH=<path-to-your-sourcecode>/go
+export GOPATH=<path-to-where-you-keep-all-your-vy-repos>/go
 export GOBIN=$GOPATH/bin
 PATH=$GOBIN:$PATH
 export PATH
 ```
-
-> Note: `path-to-your-sourcecode/go` should point to an empty folder you create to store your go code in.
 
 
 ## Set up developer environment
