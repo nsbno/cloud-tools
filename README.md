@@ -9,10 +9,6 @@ The `terraform-wrapper` is a wrapper for Terraform. It's purpose is to:
 - run custom commands (for example to dynamically generate more variables)
 - run terraform passing along any arguments
 
-Configure using a file named `cloud-config.yml`. See this file from `mtl` for an example: https://github.com/nsbno/mtl/blob/master/terraform/prod/cloud-config.yml
-
-The rest of this file explains how to install and set everything up.
-
 
 ## Install `pass`
 
