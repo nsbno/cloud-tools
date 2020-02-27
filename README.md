@@ -14,11 +14,6 @@ Configure using a file named `cloud-config.yml`. See this file from `mtl` for an
 The rest of this file explains how to install and set everything up.
 
 
-## Install `pass`
-
-See https://github.com/nsbno/.password-store for information on setting this up.
-
-
 ## Install Terraform
 
 Use the latest point release of Terraform 12 (change below)
