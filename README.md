@@ -9,9 +9,7 @@ The `terraform-wrapper` is a wrapper for Terraform. It's purpose is to:
 - run custom commands (for example to dynamically generate more variables)
 - run terraform passing along any arguments
 
-Configure using a file named `cloud-config.yml`. See this file from `mtl` for an example: https://github.com/nsbno/mtl/blob/master/terraform/prod/cloud-config.yml
-
-The rest of this file explains how to install and set everything up.
+# First time setup
 
 
 ## Install Terraform
@@ -70,5 +68,11 @@ envchain aws terraform-wrapper init
 envchain aws terraform-wrapper plan
 ```
 
+# Configuration
+Configure using a file named `cloud-config.yml`. See this file from `booking` for an example: https://github.com/nsbno/booking/blob/master/terraform/test1/cloud-config.yml
+
+
 ---
 The tools has borrowed a lot from: https://github.com/digipost/cloud-tools
+
+
