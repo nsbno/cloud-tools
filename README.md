@@ -71,6 +71,10 @@ envchain aws terraform-wrapper plan
 # Configuration
 Configure using a file named `cloud-config.yml`. See this file from `booking` for an example: https://github.com/nsbno/booking/blob/master/terraform/test1/cloud-config.yml
 
+## Pagerduty API token 
+Some of the Terraform-modules require access to the Pagerduty REST API. To copy the access token into your `envchain` namespace, run this command:
+
+`$ pass git pull && (pass show vy/pagerduty/apitoken | envchain -s aws PAGERDUTY_TOKEN)`
 
 ---
 The tools has borrowed a lot from: https://github.com/digipost/cloud-tools
